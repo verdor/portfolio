@@ -1,0 +1,19 @@
+<% if photo.persisted? %>
+  <div class="col-md-4">
+    <div class="card mb-4 shadow-sm">
+      <img src="https://desarrollador-android.com/wp-content/uploads/2015/03/style_icons_system_grid_geometry2-300x300.png" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title"><%= photo.name %></h5>
+        <p class="card-text"><%= photo.description %></p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <%= link_to 'View', photo, class: 'btn btn-secondary btn-sm' %>
+            <%= link_to 'Edit', edit_photo_path(photo), class: 'btn btn-secondary btn-sm' %>
+            <%= link_to 'Delete', photo, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary btn-sm'  %>
+          </div>
+          <small class="text-muted"><%= 'favourite' if photo.favourite %></small>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
