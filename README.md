@@ -27,3 +27,5 @@ case, change the ownership of the new files. [tips](https://docs.docker.com/comp
 
 If you add a gem in the Gemfile, you need to restart Docker or run the command
 `docker-compose run web bundle install`
+
+`docker-compose run web rake db:migrate`

@@ -1,0 +1,36 @@
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1 class="jumbotron-heading">Albums</h1>
+    <p class="lead text-muted">Find me in app/views/home/index.html.erb</p>
+    <p>
+      <%= link_to 'New Album', new_album_path, class: 'btn btn-secondary btn-sm' %>
+    </p>
+  </div>
+</section>
+<p id="notice"><%= notice %></p>
+
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row">
+      <% @albums.each do |album| %>
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <img src="https://desarrollador-android.com/wp-content/uploads/2015/03/style_icons_system_grid_geometry2-300x300.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"><%= album.name %></h5>
+              <p class="card-text"><%= album.description %></p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <%= link_to 'View', album, class: 'btn btn-secondary btn-sm' %>
+                  <%= link_to 'Edit', edit_album_path(album), class: 'btn btn-secondary btn-sm' %>
+                  <%= link_to 'Delete', album, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary btn-sm'  %>
+                </div>
+                <small class="text-muted">9 Photos</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
