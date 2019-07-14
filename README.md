@@ -22,3 +22,8 @@ root. This happens because the container runs as the root user. If this is the
 case, change the ownership of the new files. [tips](https://docs.docker.com/compose/rails/)
 
 `sudo chown -R $USER:$USER .`
+
+`docker-compose run web rails --version`
+
+If you add a gem in the Gemfile, you need to restart Docker or run the command
+`docker-compose run web bundle install`
