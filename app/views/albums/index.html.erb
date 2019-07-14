@@ -15,7 +15,11 @@
       <% @albums.each do |album| %>
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
-            <img src="https://desarrollador-android.com/wp-content/uploads/2015/03/style_icons_system_grid_geometry2-300x300.png" class="card-img-top" alt="...">
+            <% if album.photos.any? { |photo| photo.image.attached? }  %>
+              <%= image_tag album.photos.detect { |photo| photo.image.attached? }.image, class: 'img-fluid'%>
+            <% else %>
+              <img src="https://desarrollador-android.com/wp-content/uploads/2015/03/style_icons_system_grid_geometry2-300x300.png" class="card-img-top" alt="...">
+            <% end %>
             <div class="card-body">
               <h5 class="card-title"><%= album.name %></h5>
               <p class="card-text"><%= album.description %></p>
@@ -25,7 +29,7 @@
                   <%= link_to 'Edit', edit_album_path(album), class: 'btn btn-secondary btn-sm' %>
                   <%= link_to 'Delete', album, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary btn-sm'  %>
                 </div>
-                <small class="text-muted">9 Photos</small>
+                <small class="text-muted"><%= album.photos.count %> Photo<%= 's' if (album.photos.count != 0) %></small>
               </div>
             </div>
           </div>
