@@ -1,12 +1,23 @@
 <% if photo.persisted? %>
   <div class="col-md-4">
     <div class="card mb-4 shadow-sm">
-      <%= image_tag photo.image, class: 'img-fluid' if photo.image.attached? %>
+      <%#= image_tag photo.image, class: 'img-fluid' if photo.image.attached? %>
       <%#= image_tag photo.image.preview(resize: "100x100>") %>
       <%#= image_tag photo.image.variant(resize: "100x100") %>
+      <%= image_tag photo.image, class: 'img-fluid' %>
       <div class="card-body">
         <h5 class="card-title"><%= photo.name %></h5>
         <p class="card-text"><%= photo.description %></p>
+        <small class="text-muted">brand: <%= photo.image.metadata['make'] %></small>
+        <small class="text-muted">model: <%= photo.image.metadata['model'] %></small>
+        <small class="text-muted">exposure: <%= photo.image.metadata['exposure_time'] %></small>
+        <small class="text-muted">ISO speed: <%= photo.image.metadata['iso_speed_ratings'] %></small>
+        <small class="text-muted">focal length: <%= photo.image.metadata['focal_length'] %></small>
+        <small class="text-muted">date: <%= Date.parse(photo.image.metadata['date_time']) rescue nil %></small>
+        <small class="text-muted">longitude: <%= photo.image.metadata['longitude'] %></small>
+        <small class="text-muted">latitude: <%= photo.image.metadata['latitude'] %></small>
+        <small class="text-muted">altitude: <%= photo.image.metadata['altitude'] %></small>
+        <!-- <small class="text-muted">exif <%== photo.image.metadata['exif'].first.inspect %></small> -->
         <div class="d-flex justify-content-between align-items-center">
           <div class="btn-group">
             <%= link_to 'View', photo, class: 'btn btn-secondary btn-sm' %>

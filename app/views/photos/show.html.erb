@@ -20,6 +20,12 @@
   <%= @photo.album %>
 </p>
 
+<p>exposure: <%= @photo.image.metadata['exif'].first['exposure_time'] %></p>
+<p>ISO: <%= @photo.image.metadata['exif'].first['iso_speed_ratings'] %></p>
+<p>focal_length: <%= @photo.image.metadata['exif'].first['focal_length'] %></p>
+<p><%= @photo.image.metadata['exif'].first.keys %></p>
+<p><%= @photo.image.metadata %></p>
+
 <%= image_tag @photo.image, class: 'img-fluid' if @photo.image.attached? %>
 
 <%= link_to 'Edit', edit_photo_path(@photo) %> |

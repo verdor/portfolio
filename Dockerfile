@@ -7,7 +7,8 @@ MAINTAINER el.verdor@gmail.com
 RUN apt-get update -qq && apt-get install -y \
   build-essential \
   nodejs \
-  postgresql-client
+  postgresql-client\
+  imagemagick
 
 # Configure the main working directory. This is the base
 # directory used in any further RUN, COPY, and ENTRYPOINT

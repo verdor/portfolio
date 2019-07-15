@@ -16,7 +16,7 @@
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
             <% if album.photos.any? { |photo| photo.image.attached? }  %>
-              <%= image_tag album.photos.detect { |photo| photo.image.attached? }.image, class: 'img-fluid'%>
+              <%= image_tag album.photos.detect { |photo| photo.image.attached? }.image.variant(resize: "200x200"), class: 'img-fluid'%>
             <% else %>
               <img src="https://desarrollador-android.com/wp-content/uploads/2015/03/style_icons_system_grid_geometry2-300x300.png" class="card-img-top" alt="...">
             <% end %>
