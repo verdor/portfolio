@@ -1,0 +1,1 @@
+$('.<%="fav_#{@photo.id}"%>').html('<%= link_to 'Fav', favourite_photo_path(@photo), method: :put, remote: true, class: "btn #{ @photo.favourite ? 'btn-warning' : 'btn-secondary'} btn-sm" %>');

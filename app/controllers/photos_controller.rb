@@ -1,5 +1,5 @@
 class PhotosController < ApplicationController
-  before_action :set_photo, only: [:show, :edit, :update, :destroy]
+  before_action :set_photo, only: [:show, :edit, :update, :destroy, :favourite]
 
   # GET /photos
   # GET /photos.json
@@ -59,6 +59,16 @@ class PhotosController < ApplicationController
     respond_to do |format|
       format.html { redirect_to photos_url, notice: 'Photo was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def favourite
+    @photo.favourite = !@photo.favourite
+    @photo.save
+
+    respond_to do |format|
+      format.html { render :show }
+      format.js
     end
   end
 

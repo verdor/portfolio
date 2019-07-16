@@ -26,6 +26,10 @@
             <%= link_to 'Edit', edit_photo_path(photo), class: 'btn btn-secondary btn-sm' %>
             <%= link_to 'Delete', photo, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary btn-sm'  %>
           </div>
+          <!--  TODO: helper for buttons-->
+          <span class='<%="fav_#{photo.id}"%>' >
+            <%= link_to 'Fav', favourite_photo_path(photo), method: :put, remote: true, class: "btn #{ photo.favourite ? 'btn-warning' : 'btn-secondary'} btn-sm" %>
+          <span>
           <small class="text-muted"><%= 'favourite' if photo.favourite %></small>
         </div>
       </div>

@@ -24,7 +24,7 @@
 <p>ISO: <%= @photo.image.metadata['exif'].first['iso_speed_ratings'] %></p>
 <p>focal_length: <%= @photo.image.metadata['exif'].first['focal_length'] %></p>
 
-<%= image_tag Location.new(photo.image.metadata['latitude'], photo.image.metadata['longitude']).map_url, class: 'img-fluid' %>
+<%= image_tag Location.new(@photo.image.metadata['latitude'], @photo.image.metadata['longitude']).map_url, class: 'img-fluid' %>
 <p><%= @photo.image.metadata['exif'].first.keys %></p>
 <p><%= @photo.image.metadata %></p>
 
@@ -32,3 +32,5 @@
 
 <%= link_to 'Edit', edit_photo_path(@photo) %> |
 <%= link_to 'Back', photos_path %>
+<!-- TODO: Fav need a helper  -->
+<%= link_to 'Fav', favourite_photo_path(@photo), method: :put, remote: false, class: "btn #{ @photo.favourite ? 'btn-warning' : 'btn-secondary'} btn-sm" %>
