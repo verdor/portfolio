@@ -30,8 +30,8 @@ module ActiveStorage
         data[:focal_length] = exif.focal_length
         data[:date_time] = exif.date_time
         if gps = exif.gps
-          data[:latitude]  = gps.latitude,
-          data[:longitude] = gps.longitude,
+          data[:latitude]  = gps.latitude
+          data[:longitude] = gps.longitude
           data[:altitude]  = gps.altitude
         end
         data

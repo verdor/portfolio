@@ -23,6 +23,8 @@
 <p>exposure: <%= @photo.image.metadata['exif'].first['exposure_time'] %></p>
 <p>ISO: <%= @photo.image.metadata['exif'].first['iso_speed_ratings'] %></p>
 <p>focal_length: <%= @photo.image.metadata['exif'].first['focal_length'] %></p>
+
+<%= image_tag Location.new(photo.image.metadata['latitude'], photo.image.metadata['longitude']).map_url, class: 'img-fluid' %>
 <p><%= @photo.image.metadata['exif'].first.keys %></p>
 <p><%= @photo.image.metadata %></p>
 

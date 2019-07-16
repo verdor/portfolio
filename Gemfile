@@ -33,8 +33,11 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+
 # EXIF Reader is a module to read metadata from JPEG and TIFF images.
 gem 'exifr'
+# Geocoder is a complete geocoding solution for Ruby
+# gem 'geocoder'
 # Use ActiveStorage variant
 gem 'mini_magick', '~> 4.8'
 
