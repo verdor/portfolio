@@ -10,8 +10,8 @@
 
 @media (min-width: 768px) {
   .jumbotron {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
 }
 
@@ -26,6 +26,21 @@
 .jumbotron .container {
   max-width: 40rem;
 }
+
+.img-thumbnail {
+  border-radius: 1rem !important;
+  border: 0;
+}
+.card-body {
+  .keypad {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+  }
+}
+.location {
+   height: 4rem !important;
+ }
 
 footer {
   padding-top: 3rem;

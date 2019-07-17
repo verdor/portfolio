@@ -3,38 +3,62 @@
     <h1 class="jumbotron-heading">Albums</h1>
     <p class="lead text-muted">Find me in app/views/home/index.html.erb</p>
     <p>
-      <%= link_to 'New Album', new_album_path, class: 'btn btn-secondary btn-sm' %>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
+        Add an album
+      </button>
     </p>
   </div>
+  <p id="notice"><%= notice %></p>
 </section>
-<p id="notice"><%= notice %></p>
 
 <div class="album py-5 bg-light">
   <div class="container">
-    <div class="row">
-      <% @albums.each do |album| %>
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
+    <% @albums.each do |album| %>
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-4">
             <% if album.photos.any? { |photo| photo.image.attached? }  %>
-              <%= image_tag album.photos.detect { |photo| photo.image.attached? }.image.variant(resize: "200x200"), class: 'img-fluid'%>
+             <%#= image_tag album.photos.detect { |photo| photo.image.attached? }.image.variant(resize: "300x300"), class: 'mr-3'%>
+             <%= image_tag album.photos.detect { |photo| photo.image.attached? }
+                                .image.variant(combine_options: { resize: "x300", gravity: 'Center', crop: '300x300+0+0' }),
+                                              class: 'img-thumbnail' %>
             <% else %>
-              <img src="https://desarrollador-android.com/wp-content/uploads/2015/03/style_icons_system_grid_geometry2-300x300.png" class="card-img-top" alt="...">
+              <img src="https://desarrollador-android.com/wp-content/uploads/2015/03/style_icons_system_grid_geometry2-300x300.png" class="img-thumbnail" alt="...">
             <% end %>
+          </div>
+          <div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title"><%= album.name %></h5>
               <p class="card-text"><%= album.description %></p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <%= link_to 'View', album, class: 'btn btn-secondary btn-sm' %>
-                  <%= link_to 'Edit', edit_album_path(album), class: 'btn btn-secondary btn-sm' %>
-                  <%= link_to 'Delete', album, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary btn-sm'  %>
-                </div>
-                <small class="text-muted"><%= album.photos.count %> Photo<%= 's' if (album.photos.count != 0) %></small>
+              <!-- TODO: helper needed -->
+              <small class="text-muted"><%= album.photos.count %> Photo<%= 's' if (album.photos.count != 1) %></small>
+              <div class="btn-group keypad">
+                <%= link_to 'View', album, class: 'btn btn-secondary btn-sm' %>
+                <%= link_to 'Edit', edit_album_path(album), class: 'btn btn-secondary btn-sm' %>
+                <%= link_to 'Delete', album, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary btn-sm'  %>
               </div>
             </div>
           </div>
         </div>
-      <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add an album:</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= render 'albums/form', album: Album.new %>
+      </div>
     </div>
   </div>
 </div>

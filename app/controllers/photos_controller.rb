@@ -25,17 +25,15 @@ class PhotosController < ApplicationController
   # POST /photos.json
   def create
     @photo = Photo.new(photo_params)
-    @photo.save
-    # respond_to do |format|
-    #   if @photo.save
-    #     format.html { redirect_to @photo, notice: 'Photo was successfully created.' }
-    #     format.json { render :show, status: :created, location: @photo }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @photo.errors, status: :unprocessable_entity }
-    #   end
-    # end
-    redirect_to album_path(@photo.album)
+    respond_to do |format|
+      if @photo.save
+        format.html { redirect_to album_path(@photo.album), notice: 'Photo was successfully created.' }
+        format.json { render :show, status: :created, location: @photo }
+      else
+        format.html { redirect_to album_path(@photo.album), notice: 'Error. Missing photo.' }
+        format.json { render json: @photo.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PATCH/PUT /photos/1
@@ -57,7 +55,7 @@ class PhotosController < ApplicationController
   def destroy
     @photo.destroy
     respond_to do |format|
-      format.html { redirect_to photos_url, notice: 'Photo was successfully destroyed.' }
+      format.html { redirect_back fallback_location: @photo.album, notice: 'Photo was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

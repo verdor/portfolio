@@ -1,38 +1,50 @@
-<% if photo.persisted? %>
-  <div class="col-md-4">
-    <div class="card mb-4 shadow-sm">
-      <%#= image_tag photo.image, class: 'img-fluid' if photo.image.attached? %>
-      <%= image_tag photo.image.variant(resize: "300x300"), class: 'img-fluid' %>
-      <div class="card-body">
-        <h5 class="card-title"><%= photo.name %></h5>
-        <p class="card-text"><%= photo.description %></p>
-        <!-- <small class="text-muted">analyzed: <%= photo.image.metadata['analyzed'] %></small>
-        <small class="text-muted">exif: <%= photo.image.metadata.has_key?('exif') %></small>
-        <small class="text-muted">brand: <%= photo.image.metadata['make'] %></small> -->
-        <small class="text-muted">model: <%= photo.image.metadata['model'] %></small>
-        <small class="text-muted">exposure: <%= photo.image.metadata['exposure_time'] %></small>
-        <small class="text-muted">ISO speed: <%= photo.image.metadata['iso_speed_ratings'] %></small>
-        <small class="text-muted">focal length: <%= photo.image.metadata['focal_length'] %></small>
-        <small class="text-muted">date: <%= Date.parse(photo.image.metadata['date_time']) rescue nil %></small>
-        <!-- <small class="text-muted">gps: <%= photo.image.metadata['gps'] %></small> -->
-        <!-- <small class="text-muted">latitude: <%= photo.image.metadata['latitude'] %></small>
-        <small class="text-muted">longitude: <%= photo.image.metadata['longitude'] %></small>
-        <small class="text-muted">altitude: <%= photo.image.metadata['altitude'] %></small> -->
+<% return unless photo.persisted? %>
+
+<div class="col-md-6">
+  <div class="card mb-6 shadow-sm">
+    <%= image_tag photo.image.variant(combine_options: { resize: "x500", gravity: 'Center', crop: '500x500+0+0' }),
+                                      class: 'img-thumbnail img-fluid' %>
+    <div class="card-body">
+      <h5 class="card-title"><%= photo.name %></h5>
+      <p class="card-text"><%= photo.description %></p>
+      <small class="text-muted">model: <%= photo.image.metadata['model'] %></small>
+      <br>
+      <small class="text-muted">exposure: <%= photo.image.metadata['exposure_time'] %></small>
+      <br>
+      <small class="text-muted">ISO speed: <%= photo.image.metadata['iso_speed_ratings'] %></small>
+      <br>
+      <small class="text-muted">focal length: <%= photo.image.metadata['focal_length'] %></small>
+      <br>
+      <small class="text-muted">date: <%= Date.parse(photo.image.metadata['date_time']) rescue nil %></small>
+      <br>
+      <div class="location">
         <small class="text-muted">location: <%= Location.new(photo.image.metadata['latitude'], photo.image.metadata['longitude']).location rescue '' %></small>
-        <!-- <small class="text-muted">exif <%== photo.image.metadata['exif'].try(:[], 0).inspect %></small> -->
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-            <%= link_to 'View', photo, class: 'btn btn-secondary btn-sm' %>
-            <%= link_to 'Edit', edit_photo_path(photo), class: 'btn btn-secondary btn-sm' %>
-            <%= link_to 'Delete', photo, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary btn-sm'  %>
-          </div>
-          <!--  TODO: helper for buttons-->
-          <span class='<%="fav_#{photo.id}"%>' >
-            <%= link_to 'Fav', favourite_photo_path(photo), method: :put, remote: true, class: "btn #{ photo.favourite ? 'btn-warning' : 'btn-secondary'} btn-sm" %>
-          <span>
-          <small class="text-muted"><%= 'favourite' if photo.favourite %></small>
+      </div>
+      <!-- <small class="text-muted">exif <%== photo.image.metadata['exif'].try(:[], 0).inspect %></small> -->
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+          <%= link_to 'Download', rails_blob_path(photo.image, disposition: "attachment"), class: 'btn btn-secondary btn-sm' %>
+          <%#= link_to 'View', photo, class: 'btn btn-secondary btn-sm' %>
+          <%#= link_to 'Edit', edit_photo_path(photo), class: 'btn btn-secondary btn-sm' %>
+          <%= link_to 'Delete', photo, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary btn-sm'  %>
         </div>
+        <!--  TODO: helper for buttons-->
+        <span class='<%="fav_#{photo.id}"%>' >
+          <%= link_to favourite_photo_path(photo), method: :put, remote: true, class: "btn #{ photo.favourite ? 'btn-warning' : 'btn-secondary'} btn-sm" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path d="M12 .288l2.833 8.718h9.167l-7.417 5.389 2.833 8.718-7.416-5.388-7.417 5.388 2.833-8.718-7.416-5.389h9.167z"/></svg>
+          <% end %>
+        <span>
       </div>
     </div>
   </div>
-<% end %>
+</div>
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <img src="" class="imagepreview" style="width: 100%;" >
+      </div>
+    </div>
+  </div>
+</div>

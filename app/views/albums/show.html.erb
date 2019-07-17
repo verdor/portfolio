@@ -1,18 +1,27 @@
 <section class="jumbotron text-center">
   <div class="container">
-    <p id="notice"><%= notice %></p>
     <h1 class="jumbotron-heading"><%= @album.name %></h1>
     <p class="lead text-muted"><%= @album.description %></p>
     <p>
       <%= link_to 'Edit', edit_album_path(@album), class: 'btn btn-secondary btn-sm' %>
-      <%= link_to 'Back', albums_path, class: 'btn btn-secondary btn-sm' %>
+      <%= link_to 'Index', albums_path, class: 'btn btn-secondary btn-sm' %>
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
         Add a photo
       </button>
     </p>
   </div>
+  <p id="notice"><%= notice %></p>
 </section>
+
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row no-gutters">
+      <%= render @album.photos %>
+    </div>
+  </div>
+</div>
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -26,13 +35,6 @@
       <div class="modal-body">
         <%= render 'photos/form', photo: @album.photos.build %>
       </div>
-    </div>
-  </div>
-</div>
-<div class="album py-5 bg-light">
-  <div class="container">
-    <div class="row">
-      <%= render @album.photos %>
     </div>
   </div>
 </div>
