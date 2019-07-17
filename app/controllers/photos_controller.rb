@@ -74,6 +74,11 @@ class PhotosController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_photo
       @photo = Photo.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: 'Photo not found.' }
+        format.json { render json: e, status: :not_found }
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
