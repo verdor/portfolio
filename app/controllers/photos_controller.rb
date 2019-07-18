@@ -1,20 +1,9 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :edit, :update, :destroy, :favourite]
 
-  # GET /photos
-  # GET /photos.json
-  def index
-    @photos = Photo.all
-  end
-
   # GET /photos/1
   # GET /photos/1.json
   def show
-  end
-
-  # GET /photos/new
-  def new
-    @photo = Photo.new
   end
 
   # GET /photos/1/edit
@@ -41,7 +30,7 @@ class PhotosController < ApplicationController
   def update
     respond_to do |format|
       if @photo.update(photo_params)
-        format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
+        format.html { redirect_back fallback_location: @photo.album, notice: 'Photo was successfully updated.' }
         format.json { render :show, status: :ok, location: @photo }
       else
         format.html { render :edit }

@@ -1,7 +1,7 @@
 <section class="jumbotron text-center">
   <div class="container">
     <h1 class="jumbotron-heading">Albums</h1>
-    <p class="lead text-muted">Find me in app/views/home/index.html.erb</p>
+    <p class="lead text-muted">Find me in app/views/album/index.html.erb</p>
     <p>
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
@@ -36,7 +36,9 @@
               <div class="btn-group keypad">
                 <%= link_to 'View', album, class: 'btn btn-secondary btn-sm' %>
                 <%= link_to 'Edit', edit_album_path(album), class: 'btn btn-secondary btn-sm' %>
-                <%= link_to 'Delete', album, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary btn-sm'  %>
+                <%= link_to 'Delete', album, method: :delete,
+                                             data: { confirm: "#{'You will lost all photos in this Album. ' if album.photos.any?}\nAre you sure?" },
+                                             class: 'btn btn-secondary btn-sm'  %>
               </div>
             </div>
           </div>
@@ -46,7 +48,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal New Album -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
