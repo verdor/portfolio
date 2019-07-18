@@ -30,7 +30,7 @@ class PhotosController < ApplicationController
         format.html { redirect_to album_path(@photo.album), notice: 'Photo was successfully created.' }
         format.json { render :show, status: :created, location: @photo }
       else
-        format.html { redirect_to album_path(@photo.album), notice: 'Error. Missing photo.' }
+        format.html { redirect_to album_path(@photo.album), notice: @photo.errors.full_messages.join(', ') }
         format.json { render json: @photo.errors, status: :unprocessable_entity }
       end
     end
