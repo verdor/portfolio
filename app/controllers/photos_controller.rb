@@ -14,6 +14,7 @@ class PhotosController < ApplicationController
   # POST /photos.json
   def create
     @photo = Photo.new(photo_params)
+
     respond_to do |format|
       if @photo.save
         format.html { redirect_to album_path(@photo.album), notice: 'Photo was successfully created.' }
@@ -60,18 +61,19 @@ class PhotosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_photo
-      @photo = Photo.find(params[:id])
-    rescue ActiveRecord::RecordNotFound => e
-      respond_to do |format|
-        format.html { redirect_to root_path, notice: 'Photo not found.' }
-        format.json { render json: e, status: :not_found }
-      end
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def photo_params
-      params.require(:photo).permit(:name, :description, :favourite, :album_id, :image)
+  # Use callbacks to share common setup or constraints between actions.
+  def set_photo
+    @photo = Photo.find(params[:id])
+  rescue ActiveRecord::RecordNotFound => e
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'Photo not found.' }
+      format.json { render json: e, status: :not_found }
     end
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def photo_params
+    params.require(:photo).permit(:name, :description, :favourite, :album_id, :image)
+  end
 end

@@ -14,7 +14,7 @@ class Photo < ApplicationRecord
     return unless image.attached?
 
     unless image.content_type =~ /^image\/(jpeg|pjpeg|gif|png|bmp)$/
-      errors.add(:upload, "not a valid image")
+      errors.add(:upload, 'not a valid image')
     end
   end
 end

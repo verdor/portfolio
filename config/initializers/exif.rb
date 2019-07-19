@@ -21,7 +21,7 @@ module ActiveStorage
       return unless image.type == 'JPEG'
 
       data = {}
-      if exif = EXIFR::JPEG.new(image.path).exif
+      if (exif = EXIFR::JPEG.new(image.path).exif)
         data[:exif] = exif
         data[:make] = exif.make
         data[:model] = exif.model
@@ -29,14 +29,16 @@ module ActiveStorage
         data[:iso_speed_ratings] = exif.iso_speed_ratings
         data[:focal_length] = exif.focal_length
         data[:date_time] = exif.date_time
-        if gps = exif.gps
+        if (gps = exif.gps)
           data[:latitude]  = gps.latitude
           data[:longitude] = gps.longitude
           data[:altitude]  = gps.altitude
         end
         data
       end
-    rescue EXIFR::MalformedImage, EXIFR::MalformedJPEG
+    rescue EXIFR::MalformedImage, EXIFR::MalformedJPEG => e
+      logger.info "Malformed JPEG: #{e}"
+      {}
     end
   end
 end

@@ -24,7 +24,6 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 RSpec.describe PhotosController, type: :controller do
-
   # This should return the minimal set of attributes required to create a valid
   # Photo. As you add validations to Photo, be sure to
   # adjust the attributes here as well.
@@ -52,38 +51,38 @@ RSpec.describe PhotosController, type: :controller do
   # PhotosController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET #edit" do
-    it "returns a success response" do
+  describe 'GET #edit' do
+    it 'returns a success response' do
       photo = Photo.create! valid_attributes
-      get :edit, params: {id: photo.to_param}, session: valid_session
+      get :edit, params: { id: photo.to_param }, session: valid_session
       expect(response).to be_successful
     end
   end
 
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new Photo" do
+  describe 'POST #create' do
+    context 'with valid params' do
+      it 'creates a new Photo' do
         expect {
-          post :create, params: {photo: valid_attributes}, session: valid_session
+          post :create, params: { photo: valid_attributes }, session: valid_session
         }.to change(Photo, :count).by(1)
       end
 
-      it "redirects to the created photo" do
-        post :create, params: {photo: valid_attributes}, session: valid_session
+      it 'redirects to the created photo' do
+        post :create, params: { photo: valid_attributes }, session: valid_session
         expect(response).to redirect_to(album)
       end
     end
 
-    context "with invalid params" do
+    context 'with invalid params' do
       it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: {photo: invalid_attributes}, session: valid_session
+        post :create, params: { photo: invalid_attributes }, session: valid_session
         expect(response).not_to be_successful
       end
     end
   end
 
-  describe "PUT #update" do
-    context "with valid params" do
+  describe 'PUT #update' do
+    context 'with valid params' do
       let(:new_attributes) {
         {
           name: 'Photo Edit',
@@ -93,44 +92,43 @@ RSpec.describe PhotosController, type: :controller do
         }
       }
 
-      it "updates the requested photo" do
+      it 'updates the requested photo' do
         photo = Photo.create! valid_attributes
-        put :update, params: {id: photo.to_param, photo: new_attributes}, session: valid_session
+        put :update, params: { id: photo.to_param, photo: new_attributes }, session: valid_session
         photo.reload
         # skip("Add assertions for updated state")
         expect(photo.name).to eq(new_attributes[:name])
         expect(response).to redirect_to(album)
       end
 
-      it "redirects to the album" do
+      it 'redirects to the album' do
         photo = Photo.create! valid_attributes
-        put :update, params: {id: photo.to_param, photo: valid_attributes}, session: valid_session
+        put :update, params: { id: photo.to_param, photo: valid_attributes }, session: valid_session
         expect(response).to redirect_to(album)
       end
     end
 
-    context "with invalid params" do
+    context 'with invalid params' do
       it "returns a success response (i.e. to display the 'edit' template)" do
         photo = Photo.create! valid_attributes
-        put :update, params: {id: photo.to_param, photo: invalid_attributes}, session: valid_session
+        put :update, params: { id: photo.to_param, photo: invalid_attributes }, session: valid_session
         expect(response).not_to be_successful
       end
     end
   end
 
-  describe "DELETE #destroy" do
-    it "destroys the requested photo" do
+  describe 'DELETE #destroy' do
+    it 'destroys the requested photo' do
       photo = Photo.create! valid_attributes
       expect {
-        delete :destroy, params: {id: photo.to_param}, session: valid_session
+        delete :destroy, params: { id: photo.to_param }, session: valid_session
       }.to change(Photo, :count).by(-1)
     end
 
-    it "redirects to the album" do
+    it 'redirects to the album' do
       photo = Photo.create! valid_attributes
-      delete :destroy, params: {id: photo.to_param}, session: valid_session
+      delete :destroy, params: { id: photo.to_param }, session: valid_session
       expect(response).to redirect_to(photo.album)
     end
   end
-
 end
