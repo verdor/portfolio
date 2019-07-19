@@ -29,11 +29,17 @@ RSpec.describe AlbumsController, type: :controller do
   # Album. As you add validations to Album, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      name: 'Album',
+      description: 'Magaluf 2018 Holidays'
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      name: 'Album',
+      descriptions: ['Magaluf 2018 Holidays']
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -57,13 +63,6 @@ RSpec.describe AlbumsController, type: :controller do
     end
   end
 
-  describe "GET #new" do
-    it "returns a success response" do
-      get :new, params: {}, session: valid_session
-      expect(response).to be_successful
-    end
-  end
-
   describe "GET #edit" do
     it "returns a success response" do
       album = Album.create! valid_attributes
@@ -82,14 +81,14 @@ RSpec.describe AlbumsController, type: :controller do
 
       it "redirects to the created album" do
         post :create, params: {album: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Album.last)
+        expect(response).to redirect_to albums_url
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
         post :create, params: {album: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
+        expect(response).not_to be_successful
       end
     end
   end
@@ -97,14 +96,18 @@ RSpec.describe AlbumsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          name: 'Album Edited',
+          description: 'Magaluf 2018 Holidays'
+        }
       }
 
       it "updates the requested album" do
         album = Album.create! valid_attributes
         put :update, params: {id: album.to_param, album: new_attributes}, session: valid_session
         album.reload
-        skip("Add assertions for updated state")
+        expect(album.name).to eq(new_attributes[:name])
+        expect(response).to redirect_to(album)
       end
 
       it "redirects to the album" do
@@ -118,7 +121,7 @@ RSpec.describe AlbumsController, type: :controller do
       it "returns a success response (i.e. to display the 'edit' template)" do
         album = Album.create! valid_attributes
         put :update, params: {id: album.to_param, album: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
+        expect(response).not_to be_successful
       end
     end
   end

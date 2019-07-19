@@ -29,3 +29,5 @@ If you add a gem in the Gemfile, you need to restart Docker or run the command
 `docker-compose run web bundle install`
 
 `docker-compose run web rake db:migrate`
+
+Tests `docker-compose run web rspec`
