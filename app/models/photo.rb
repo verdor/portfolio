@@ -4,7 +4,6 @@ class Photo < ApplicationRecord
   validate :image_presence
   validate :upload_is_image
 
-
   private
 
   def image_presence
